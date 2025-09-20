@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -11,13 +12,14 @@ public class Player : MonoBehaviour
     private float verticalScreenLimit = 6f;
     private bool canShoot = true;
 
-    // Start is called before the first frame update
+    public PlayerInput playerInput;
+
+    
     void Start()
     {
-        
+        playerInput = GetComponent<PlayerInput>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Movement();
@@ -26,7 +28,10 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
-        transform.Translate(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * Time.deltaTime * speed);
+        Vector2 input = playerInput.actions["Movement"].ReadValue<Vector2>();
+
+        transform.Translate(new Vector3(input.x, input.y, 0) * Time.deltaTime * speed);
+
         if (transform.position.x > horizontalScreenLimit || transform.position.x <= -horizontalScreenLimit)
         {
             transform.position = new Vector3(transform.position.x * -1f, transform.position.y, 0);
@@ -39,7 +44,7 @@ public class Player : MonoBehaviour
 
     void Shooting()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canShoot)
+        if (playerInput.actions["Shoot"].IsPressed() && canShoot)
         {
             Instantiate(laserPrefab, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
             canShoot = false;

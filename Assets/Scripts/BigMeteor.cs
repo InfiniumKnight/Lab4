@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BigMeteor : MonoBehaviour
 {
-    private int hitCount = 0;
+    public int hitCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -15,12 +15,7 @@ public class BigMeteor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.down * Time.deltaTime * 0.5f);
-
-        if (transform.position.y < -11f)
-        {
-            Destroy(this.gameObject);
-        }
+        Movement(0.5f);
 
         if (hitCount >= 5)
         {
@@ -28,7 +23,7 @@ public class BigMeteor : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D whatIHit)
+    public void OnTriggerEnter2D(Collider2D whatIHit)
     {
         if (whatIHit.tag == "Player")
         {
@@ -39,6 +34,16 @@ public class BigMeteor : MonoBehaviour
         {
             hitCount++;
             Destroy(whatIHit.gameObject);
+        }
+    }
+
+    public void Movement(float speed)
+    {
+        transform.Translate(Vector3.down * Time.deltaTime * speed);
+
+        if (transform.position.y < -11f)
+        {
+            Destroy(this.gameObject);
         }
     }
 }
