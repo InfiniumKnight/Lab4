@@ -14,8 +14,7 @@ public class Meteor : BigMeteor
     // Update is called once per frame
     void Update()
     {
-        Movement(2f);
-
+        
         if (hitCount >= 1)
         {
             Destroy(this.gameObject);

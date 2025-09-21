@@ -40,12 +40,12 @@ public class GameManager : MonoBehaviour
 
     void SpawnMeteor()
     {
-        Instantiate(meteorPrefab, new Vector3(Random.Range(-8, 8), 7.5f, 0), Quaternion.identity);
+        Instantiate(meteorPrefab, new Vector3(Random.Range(-4, 4), 5f, 0), Quaternion.identity);
     }
 
     void BigMeteor()
     {
         meteorCount = 0;
-        Instantiate(bigMeteorPrefab, new Vector3(Random.Range(-8, 8), 7.5f, 0), Quaternion.identity);
+        Instantiate(bigMeteorPrefab, new Vector3(Random.Range(-4, 4), 5f, 0), Quaternion.identity);
     }
 }
