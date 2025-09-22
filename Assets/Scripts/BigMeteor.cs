@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class BigMeteor : MonoBehaviour
 {
     public int hitCount = 0;
 
+    public float shakeforce = 1f;
+
+    public CinemachineImpulseSource impulseSource;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     // Update is called once per frame
@@ -19,6 +24,7 @@ public class BigMeteor : MonoBehaviour
 
         if (hitCount >= 5)
         {
+            CameraShake(impulseSource);
             Destroy(this.gameObject);
         }
     }
@@ -45,5 +51,10 @@ public class BigMeteor : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public void CameraShake(CinemachineImpulseSource source)
+    {
+        source.GenerateImpulseWithForce(shakeforce);
     }
 }
